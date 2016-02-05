@@ -3,7 +3,7 @@
 
 from flask import render_template, redirect
 
-from repodoctor.webapp import webapp
+from webapp import webapp
 
 
 @webapp.route('/')

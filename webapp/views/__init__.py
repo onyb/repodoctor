@@ -1,1 +1,1 @@
-from repodoctor.webapp.views import index
+from webapp.views import index
