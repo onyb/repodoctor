@@ -1,3 +1,5 @@
+from urllib.request import urlopen
+
 import requests
 
 whitelist = [
@@ -6,7 +8,7 @@ whitelist = [
         'msg': 'People really read this stuff'
     },
     {
-        'file': 'LICENSE.TXT',
+        'file': 'LICENSE',
         'msg': 'Get an Open Source License buddy'
     },
     {
@@ -27,7 +29,7 @@ class Repo:
     def __init__(self, owner, repo):
         self.repo = repo
         self.owner = owner
-        self.files = None
+        self.contents = None
 
     def get_contents(self):
         uri = "https://api.github.com/repos/%s/%s/contents" % (self.owner, self.repo)
@@ -37,13 +39,40 @@ class Repo:
             print(resp.status_code)
             raise Exception
         else:
-            self.files = [each['name'] for each in resp.json()]
+            self.contents = [each['name'] for each in resp.json()]
 
     def check_file(self, file):
-        return file in self.files
+        return file in self.contents
+
+    def check_readme(self):
+        readme = urlopen(
+            "https://raw.githubusercontent.com/%s/%s/master/README.md" % (self.owner, self.repo)
+        ).read().strip().decode('utf-8')
+
+        if readme.count('\n') <= 2:
+            raise Exception("Useless README.md")
+        else:
+            return True
+
+    def check_build(self):
+        return requests.get(
+            "https://api.travis-ci.org/repositories/%s/%s.json" % (self.owner, self.repo)
+        ).json()['last_build_status'] is 0
+
+    def check_test(self):
+        return 'test' in self.contents or 'tests' in self.contents
+
+    def check_milestones(self):
+        uri = "https://api.github.com/repos/%s/%s/milestones" % (self.owner, self.repo)
+        return requests.get(uri).json() != []
 
 
 r = Repo("onyb", "cling")
 r.get_contents()
 for stuff in whitelist:
-    print(stuff['file'], ':', r.check_file(stuff), ' - ', stuff['msg'])
+    print(stuff['file'], ':', r.check_file(stuff['file']), '-', stuff['msg'])
+
+assert r.check_build() is True
+assert r.check_test()
+assert r.check_readme() is True
+assert r.check_milestones() is False  # FIXME: Temporary hack
