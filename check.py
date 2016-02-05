@@ -1,12 +1,25 @@
 import requests
-from urlparse import urljoin
 
 whitelist = [
-    'README.md',
-    'LICENSE.TXT',
-    'CONTRIBUTING.md',
-    '.gitignore',
-    '.travis.yml'
+    {
+        'file': 'README.md',
+        'msg': 'People really read this stuff'
+    },
+    {
+        'file': 'LICENSE.TXT',
+        'msg': 'Get an Open Source License buddy'
+    },
+    {
+        'file': 'CONTRIBUTING.md',
+        'msg': 'Dummy'
+    },
+    {
+        'file': '.travis.yml',
+        'msg': 'You should have CI stuff'
+    }, {
+        'file': '.gitignore',
+        'msg': 'You should have this as well'
+    },
 ]
 
 
@@ -19,8 +32,6 @@ class Repo:
     def get_contents(self):
         uri = "https://api.github.com/repos/%s/%s/contents" % (self.owner, self.repo)
         resp = requests.get(uri)
-
-        print(uri)
 
         if resp.status_code is not 200:
             print(resp.status_code)
@@ -35,4 +46,4 @@ class Repo:
 r = Repo("onyb", "cling")
 r.get_contents()
 for stuff in whitelist:
-    print(stuff, ':', r.check_file(stuff))
+    print(stuff['file'], ':', r.check_file(stuff), ' - ', stuff['msg'])
