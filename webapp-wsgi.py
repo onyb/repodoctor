@@ -1,10 +1,10 @@
 if __name__ == "__main__":
-    from repomixer.webapp import webapp
-    from repomixer.webapp import views
+    from repodoctor.webapp import webapp
+    from repodoctor.webapp import views
     webapp.run(debug=True, port=3000)
 else:
     import sys
     #FIXME: Change hardcoded path
-    sys.path.append('/home/ani/repos/onyb/repomixer')
-    from repomixer.webapp import webapp
-    from repomixer.webapp import views
+    sys.path.append('/home/ani/repos/onyb/repodoctor')
+    from repodoctor.webapp import webapp
+    from repodoctor.webapp import views
