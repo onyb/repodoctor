@@ -16,14 +16,20 @@ def api(owner, repo):
     print(result)
     return Response(json.dumps(result, indent=4), mimetype="application/json")
 
+@webapp.route('/')
+def index():
+    return render_template(
+        'index.html'
+    )
+
 @webapp.route('/<owner>/<repo>')
-def index(owner, repo):
+def results(owner, repo):
     r = RepoScanner(owner, repo)
     results = r.get_results()
 
     print(results)
     return render_template(
-        'index.html',
+        'results.html',
         results=results
     )
 

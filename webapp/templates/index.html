@@ -4,88 +4,18 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="../static/style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		
 		<script type="text/javascript">
-		
-			/*window.onload = function(){ 
-				var submitbutton = document.getElementById("tfq");
-				if(submitbutton.addEventListener){
-					submitbutton.addEventListener("click", function() {
-						if (submitbutton.value == 'check'){ //TODO
-							submitbutton.value = '';
-						}
-					});
-				}
-			}*/
-			$(document).ready(function() {
-				$('#toggleImage').click(function() {
-					imgSource = document.getElementById('toggleImage').src
-					if (imgSource.indexOf('expand.png') != -1) {
-						document.getElementById('toggleImage').src = '../static/minimize.png';
-						$('#descripDiv').show()
-					}
-					else {
-					   document.getElementById('toggleImage').src = '../static/expand.png';
-					   $('#descripDiv').hide();
-				   }		
-				});
-			});
+			function redirect() {
+				window.location.replace("results.html");
+				return false;
+			}
 		</script>
-
 	</head>
-	
-	<body>
-	
+	<body style="background-color:#C3DFEF">
 		<div id="textinputDiv">
-			<form id="textinputForm" method="get" action="http://www.google.com">
+			<form id="textinputForm" method="post" onsubmit="return redirect()"> <!-- method="get" action="http://www.google.com"-->
 				<input type="text" id="textinput" value="Enter url to Github repository"><input type="submit" value=">" id="checkbutton">
 			</form>
-		</div> 
-		</br></br>
-		<h1>Scan Results!</h1>
-		
-		<div class="col1Div">
-			<h2>Properties</h2>
 		</div>
-		<div class="col2Div">
-			<h2>Severity</h2>
-		</div>
-		<br>
-		
-		{% for result in results %}
-		<div id="contentDiv">
-			<div class="col1Div">
-				<img id="toggleImage" src="../static/expand.png">{{result.name}}
-				{% if result.status == False %}
-					<div id="descripDiv" style="display:none">HEYY GABY</div>
-				{% endif %}
-			</div>
-			
-			{% if result.severity == 2 %}
-			<div class="col2Div">
-					<div id="low" class="severity">low</div>
-					<div id="med" class="severity">med</div>
-					<div id="high" class="severity selected">high</div>
-			</div>
-			{% endif %}
-
-			{% if result.severity == 1 %}
-			<div class="col2Div">
-					<div id="low" class="severity">low</div>
-					<div id="med" class="severity selected">med</div>
-					<div id="high" class="severity">high</div>
-			</div>
-			{% endif %}
-
-			{% if result.severity == 0 %}
-			<div class="col2Div">
-					<div id="low" class="severity selected">low</div>
-					<div id="med" class="severity">med</div>
-					<div id="high" class="severity">high</div>
-			</div>
-			{% endif %}
-		</div>
-		{% endfor %}
-		
 	</body>
 </html>
