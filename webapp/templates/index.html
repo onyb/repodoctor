@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
+	<meta charset="UTF-8"> 
 	<head>
-	<link rel="stylesheet" type="text/css" href="../static/style.css">
-	
-	<script type="text/javascript">
-		window.onload = function(){ 
-			var submitbutton = document.getElementById("tfq");
-			if(submitbutton.addEventListener){
-				submitbutton.addEventListener("click", function() {
-					if (submitbutton.value == 'check'){ //TODO
-						submitbutton.value = '';
-					}
+		<link rel="stylesheet" type="text/css" href="../static/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		
+		<script type="text/javascript">
+		
+			/*window.onload = function(){ 
+				var submitbutton = document.getElementById("tfq");
+				if(submitbutton.addEventListener){
+					submitbutton.addEventListener("click", function() {
+						if (submitbutton.value == 'check'){ //TODO
+							submitbutton.value = '';
+						}
+					});
+				}
+			}*/
+			$(document).ready(function() {
+				$('#expandButton').click(function() {
+					$('#descripDiv').show();
 				});
-			}
-		}
-	</script>
+			});
+		</script>
 
 	</head>
 	
@@ -22,22 +30,32 @@
 	
 		<div id="textinputDiv">
 			<form id="textinputForm" method="get" action="http://www.google.com">
-					<input type="text" id="textinput" value="Enter url to Github repository"><input type="submit" value=">" id="checkbutton">
+				<input type="text" id="textinput" value="Enter url to Github repository"><input type="submit" value=">" id="checkbutton">
 			</form>
-			<div class="tfclear"></div>
 		</div> 
 		</br></br>
-		<div style="float:left; width:50%; margin:">
-			<h2>Problems</h2>
-			No README.md
+		<h1>Scan Results!</h1>
+		
+		<div class="col1Div">
+			<h2>Properties</h2>
 		</div>
-		<div style="float:left">
+		<div class="col2Div">
 			<h2>Severity</h2>
-			<div id="low" class="severity">low</div>
-			<div id="med" class="severity">med</div>
-			<div id="high" class="severity">high</div>
 		</div>
-	
+		<br>
+		
+		<div id="contentDiv">
+			<div class="col1Div">
+				<img id="expandButton" src="../static/expand.png">README.md
+				<div id="descripDiv" style="display:none">HEYY GABY</div>
+			</div>
+			<div class="col2Div">
+				<div id="low" class="severity">low</div>
+				<div id="med" class="severity">med</div>
+				<div id="high" class="severity">high</div>
+			</div>
+		</div>
+		
 	</body>
 </html>
 
