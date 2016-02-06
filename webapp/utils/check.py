@@ -32,6 +32,11 @@ CHECK_META = {
         'msg': 'Absence of a .gitignore file may pose a security risk. Head over to https://www.gitignore.io',
         'severity': 2
     },
+    'F05': {
+        'name': 'Code of Conduct',
+        'msg': 'Absence of a code of conduct will lead to a lack of diversity and inclusion. Head to http://contributor-covenant.org/',
+        'severity': 1
+    },
     'C01': {
         'name': 'README.md length',
         'msg': 'You have a README.md file, but it is too little to be useful.',
@@ -73,7 +78,10 @@ whitelist = [
     }, {
         'file': '.gitignore',
         'CHECK_ID': 'F04'
-    },
+    }, {
+        'file': 'CODE_OF_CONDUCT.md',
+        'CHECK_ID': 'F05'
+    }
 ]
 
 
