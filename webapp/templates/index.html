@@ -6,7 +6,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script type="text/javascript">
 			function redirect() {
-				window.location.replace("results.html");
+				var uri = document.getElementById("textinput").value.split('/');
+				var repo = uri.slice(Math.max(uri.length - 2, 1))
+				window.location.replace("/" + repo[0] + '/' + repo[1]);
 				return false;
 			}
 		</script>
