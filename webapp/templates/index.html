@@ -18,8 +18,16 @@
 				}
 			}*/
 			$(document).ready(function() {
-				$('#expandButton').click(function() {
-					$('#descripDiv').show();
+				$('#toggleImage').click(function() {
+					imgSource = document.getElementById('toggleImage').src
+					if (imgSource.indexOf('expand.png') != -1) {
+						document.getElementById('toggleImage').src = '../static/minimize.png';
+						$('#descripDiv').show()
+					}
+					else {
+					   document.getElementById('toggleImage').src = '../static/expand.png';
+					   $('#descripDiv').hide();
+				   }		
 				});
 			});
 		</script>
@@ -46,7 +54,7 @@
 		
 		<div id="contentDiv">
 			<div class="col1Div">
-				<img id="expandButton" src="../static/expand.png">README.md
+				<img id="toggleImage" src="../static/expand.png">README.md
 				<div id="descripDiv" style="display:none">HEYY GABY</div>
 			</div>
 			<div class="col2Div">

@@ -44,7 +44,7 @@ body{
 	margin: 5px 0px;
 	padding: 6px 6px;
 	color: #ffffff;
-	opacity: 0.4;
+	opacity: 0.2;
 }
 
 #low{
@@ -67,9 +67,9 @@ body{
 	opacity: 1;
 }
 
-#expandButton {
-	width:15px; 
-	height:15px; 
+#toggleImage {
+	width:20px; 
+	height:20px; 
 	padding-right:5px;
 }
 
