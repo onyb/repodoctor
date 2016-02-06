@@ -1,17 +1,25 @@
 # repodoctor
 Check your repository health
 
-List of checks:
+This project started out as a little hack during the Mozilla Science Lab WOW 2016.
+Use this webapp to scan your repository and find out how contributor friendly it is.
 
-1. README.md - must not be git default
-2. LICENSE
-3. CONTRIBUTING.md
-4. .travis.yml
-5. .gitignore
-6. Test cases
+
+###List of checks
+- Existence of README.md
+- Existence of LICENSE
+- Existence of CONTRIBUTING.md
+- Existence of .travis.yml
+- Existence of .gitignore
+- Existence of test cases
+- Code of Conduct
+- Length of README.md
+- Travis CI build status
+- GitHub milestones
 
 The application works with the repository url. The Python scripts runs above
 checks to rate your project on the basis of collaborative friendliness of the
-project.
+project. We also have an API which we plan to use for creating GitHub badges
+with Shields.
 
-More checks can be implemented as we progress!
+Please see CONTRIBUTING.md if you are interested in getting involved.
