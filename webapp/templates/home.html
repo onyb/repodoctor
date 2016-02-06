@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="UTF-8"> 
+	<head>
+		<link rel="stylesheet" type="text/css" href="../static/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			function redirect() {
+				window.location.replace("results.html");
+				return false;
+			}
+		</script>
+	</head>
+	<body style="background-color:#C3DFEF">
+		<div id="textinputDiv">
+			<form id="textinputForm" method="post" onsubmit="return redirect()"> <!-- method="get" action="http://www.google.com"-->
+				<input type="text" id="textinput" value="Enter url to Github repository"><input type="submit" value=">" id="checkbutton">
+			</form>
+		</div>
+	</body>
+</html>

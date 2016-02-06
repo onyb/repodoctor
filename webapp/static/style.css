@@ -12,6 +12,10 @@ body{
 	border-top-left-radius: 5px 5px;
 	border-bottom-left-radius: 5px 5px;
 }
+#textinputForm{
+	margin-top:20%;
+	margin-left:25%;
+}
 #checkbutton {
 	margin: 0;
 	padding: 5px 7px;
