@@ -2,47 +2,55 @@
 # -*- coding: utf-8 -*-
 
 from urllib.request import urlopen
+from pprint import pprint
 
 import requests
 
-from pprint import pprint
-
 CHECK_META = {
     'F00': {
+        'name': 'README.md',
         'msg': "A README.md is the first thing a user sees. If you do not have this, you should die already.",
         'severity': 2
     },
     'F01': {
+        'name': 'LICENSE',
         'msg': 'Head over to http://choosealicense.com and choose the right license for you.',
         'severity': 2
     },
     'F02': {
+        'name': 'CONTRIBUTING.md',
         'msg': 'Contributor guidelines for developers and newcomers.',
-        'severity': 1,
+        'severity': 1
     },
     'F03': {
+        'name': 'Travis CI integration',
         'msg': 'Travis CI is a Continuous integration platform for open source projects, letting your users check build the status.',
-        'severity': 1,
+        'severity': 1
     },
     'F04': {
+        'name': 'Gitignore file',
         'msg': 'Absence of a .gitignore file may pose a security risk. Head over to https://www.gitignore.io',
-        'severity': 2,
+        'severity': 2
     },
     'C01': {
+        'name': 'README.md length',
         'msg': 'You have a README.md file, but it is too little to be useful.',
-        'severity': 1,
+        'severity': 1
     },
     'C02': {
+        'name': 'Travis CI build status',
         'msg': 'Your Travis CI builds are failing.',
-        'severity': 2,
+        'severity': 2
     },
     'C03': {
+        'name': 'Project test suite',
         'msg': 'You do not have a test suite on your top-level directory',
-        'severity': 1,
+        'severity': 1
     },
     'C04': {
+        'name': 'GitHub milestones',
         'msg': 'Your GitHub repo does not have milestones. Milestones help you to prioritize and accelerate development.',
-        'severity': 1,
+        'severity': 1
     }
 }
 
@@ -68,8 +76,10 @@ whitelist = [
     },
 ]
 
+
 class APILimitExceeded(Exception):
     pass
+
 
 class RepoScanner:
     def __init__(self, owner, repo):
@@ -86,7 +96,6 @@ class RepoScanner:
         elif resp.status_code is 200:
             self.contents = [each['name'] for each in resp.json()]
 
-
     def check_file(self, file):
         return file in self.contents
 
@@ -96,57 +105,71 @@ class RepoScanner:
             "https://raw.githubusercontent.com/%s/%s/master/README.md" % (self.owner, self.repo)
         ).read().strip().decode('utf-8')
 
-        if readme.count('\n') <= 2:
-            return {CHECK_ID: False}
-        else:
-            return {CHECK_ID: True}
+        return {
+            'ID': CHECK_ID,
+            'status': readme.count('\n') >= 2,
+            'name': CHECK_META[CHECK_ID]['name']
+        }
 
     def check_build_status(self):
         CHECK_ID = 'C02'
-        return {CHECK_ID: requests.get(
-            "https://api.travis-ci.org/repositories/%s/%s.json" % (self.owner, self.repo)
-        ).json()['last_build_status'] is 0}
+        return {
+            'ID': CHECK_ID,
+            'status': requests.get(
+                "https://api.travis-ci.org/repositories/%s/%s.json" % (self.owner, self.repo)
+            ).json()['last_build_status'] is 0,
+            'name': CHECK_META[CHECK_ID]['name']
+        }
 
     def check_test(self):
         CHECK_ID = 'C03'
-        return {CHECK_ID: 'test' in self.contents or 'tests' in self.contents}
+        return {
+            'ID': CHECK_ID,
+            'status': 'test' in self.contents or 'tests' in self.contents,
+            'name': CHECK_META[CHECK_ID]['name']
+        }
 
     def check_milestones(self):
         CHECK_ID = 'C04'
         uri = "https://api.github.com/repos/%s/%s/milestones" % (self.owner, self.repo)
-        return {CHECK_ID: requests.get(uri).json() != []}
-
-
-r = RepoScanner("onyb", "cling")
-r.get_contents()
-_results = []
-for check in whitelist:
-    _results.append(
-        {
-            check['CHECK_ID']: r.check_file(check['file'])
+        return {
+            'ID': CHECK_ID,
+            'status': requests.get(uri).json() != [],
+            'name': CHECK_META[CHECK_ID]['name']
         }
-    )
 
-_results.append(
-    r.check_build_status()
-)
+    def get_results(self):
+        self.get_contents()
+        _results = []
+        for check in whitelist:
+            _results.append(
+                {
+                    'ID': check['CHECK_ID'],
+                    'name': CHECK_META[check['CHECK_ID']]['name'],
+                    'status': self.check_file(check['file'])
+                }
+            )
 
-_results.append(
-    r.check_test()
-)
+        _results.append(
+            self.check_build_status()
+        )
 
-_results.append(
-    r.check_readme_len()
-)
+        _results.append(
+            self.check_test()
+        )
 
-_results.append(
-    r.check_milestones()
-)
+        _results.append(
+            self.check_readme_len()
+        )
 
-for result in _results:
-    if list(result.values())[0] is False:
-        meta = CHECK_META[list(result.keys())[0]]
-        result['msg'] = meta['msg']
-        result['severity'] = meta['severity']
+        _results.append(
+            self.check_milestones()
+        )
 
-pprint(_results)
+        for result in _results:
+            if result['status'] is False:
+                meta = CHECK_META[result['ID']]
+                result['msg'] = meta['msg']
+                result['severity'] = meta['severity']
+
+        return _results
