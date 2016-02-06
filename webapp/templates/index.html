@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	
+	<script type="text/javascript">
+		window.onload = function(){ 
+			var submitbutton = document.getElementById("tfq");
+			if(submitbutton.addEventListener){
+				submitbutton.addEventListener("click", function() {
+					if (submitbutton.value == 'check'){ //TODO
+						submitbutton.value = '';
+					}
+				});
+			}
+		}
+	</script>
+
+	</head>
+	
+	<body>
+	
+		<div id="textinputDiv">
+			<form id="textinputForm" method="get" action="http://www.google.com">
+					<input type="text" id="textinput" value="Enter url to Github repository"><input type="submit" value=">" id="checkbutton">
+			</form>
+			<div class="tfclear"></div>
+		</div> 
+		</br></br>
+		<div style="float:left; width:50%; margin:">
+			<h2>Problems</h2>
+			No README.md
+		</div>
+		<div style="float:left">
+			<h2>Severity</h2>
+			<div id="low" class="severity">low</div>
+			<div id="med" class="severity">med</div>
+			<div id="high" class="severity">high</div>
+		</div>
+	
+	</body>
+</html>
+
+
+
+
+
