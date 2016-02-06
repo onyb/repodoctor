@@ -7,9 +7,8 @@ List of checks:
 2. LICENSE
 3. CONTRIBUTING.md
 4. .travis.yml
-5. Travis CI build status
-6. .gitignore
-7. Test cases
+5. .gitignore
+6. Test cases
 
 The application works with the repository url. The Python scripts runs above
 checks to rate your project on the basis of collaborative friendliness of the
