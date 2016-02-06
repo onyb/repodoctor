@@ -1,0 +1,55 @@
+Making Persona
+
+Two types of User Group 
+
+1.  App Users
+2. Contributors
+
+
+App Users
+
+* Age : 28
+* Gender: F
+* Name: Emmy
+* Ph.D. in Human Geonomics, Fellow ( Science Background)
+* University of Maryland
+* Single, Blonde, Australian
+* Project: Platform for Data Collection and research.
+* Experience with Github and coding: little or no experience 
+* Data: Medical report
+* Found out through Google search.
+
+* Motivation : To attract contributers and make contribution easy for others.
+                        Looking for people to build the platform.
+		Advertise and have better ranking badge to put it on profile.
+		Search other github projects related to her field.
+		
+Issue:  She may not understand the results that our project suggests.
+           She may not understand github terms.
+	She may not understand, how to build solution out of our suggestions.
+
+
+
+App Contributor.
+
+Jake,
+Malta,
+25
+University of Malta,
+History Student,
+Master Student in History.
+Interested in Coding , Learned on his own by experimenting and online lessons
+TDH
+He read about it on blogging sites.
+
+
+He tried it as a user on a small project and liked it and wants to add a feature 
+He is also motivated by the active community of this project, contact support and online meetups 
+
+Issues: Spare time, Bored, feedback is slow!
+
+Solution : Contact frequently to the contributors. 
+Communication should be fast, Give credits and blog about it , Better Title for easy search of our project on blogs
+
+
+	
