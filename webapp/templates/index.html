@@ -52,22 +52,40 @@
 		</div>
 		<br>
 		
+		{% for result in results %}
 		<div id="contentDiv">
 			<div class="col1Div">
-				<img id="toggleImage" src="../static/expand.png">README.md
-				<div id="descripDiv" style="display:none">HEYY GABY</div>
+				<img id="toggleImage" src="../static/expand.png">{{result.name}}
+				{% if result.status == False %}
+					<div id="descripDiv" style="display:none">HEYY GABY</div>
+				{% endif %}
 			</div>
+			
+			{% if result.severity == 2 %}
 			<div class="col2Div">
-				<div id="low" class="severity">low</div>
-				<div id="med" class="severity">med</div>
-				<div id="high" class="severity">high</div>
+					<div id="low" class="severity">low</div>
+					<div id="med" class="severity">med</div>
+					<div id="high" class="severity selected">high</div>
 			</div>
+			{% endif %}
+
+			{% if result.severity == 1 %}
+			<div class="col2Div">
+					<div id="low" class="severity">low</div>
+					<div id="med" class="severity selected">med</div>
+					<div id="high" class="severity">high</div>
+			</div>
+			{% endif %}
+
+			{% if result.severity == 0 %}
+			<div class="col2Div">
+					<div id="low" class="severity selected">low</div>
+					<div id="med" class="severity">med</div>
+					<div id="high" class="severity">high</div>
+			</div>
+			{% endif %}
 		</div>
+		{% endfor %}
 		
 	</body>
 </html>
-
-
-
-
-

@@ -92,11 +92,13 @@ class RepoScanner:
         resp = requests.get(uri)
 
         if resp.status_code is 403:
+            print("API Limit Exceeded")
             raise APILimitExceeded
         elif resp.status_code is 200:
             self.contents = [each['name'] for each in resp.json()]
 
     def check_file(self, file):
+        print(self.contents)
         return file in self.contents
 
     def check_readme_len(self):
@@ -167,9 +169,9 @@ class RepoScanner:
         )
 
         for result in _results:
+            meta = CHECK_META[result['ID']]
             if result['status'] is False:
-                meta = CHECK_META[result['ID']]
                 result['msg'] = meta['msg']
-                result['severity'] = meta['severity']
+            result['severity'] = meta['severity']
 
         return _results
